@@ -1,0 +1,54 @@
+
+<div ng-controller="pay_controller">
+    <link rel="stylesheet"  type="text/css"  href="../css/pay.css">
+    <div class='header'>
+        <button class="go_list" id="go_list" ng-click="click_list()">Let's Go</button>
+        <button class="homepage" id="homepage" ng-click="click_home()">主页</button>
+        <button class="goods_list" id="goods_list" ng-click="click_list()">商品列表</button>
+        <button class="cart" id="cart" ng-click="click_cart()">
+            <img src="../icon/cart.png" alt="购物车的图标"/><a>购物车(<strong id="count" ng-model="sum_count">{{sum_count}}</strong>)</a>
+        </button>
+    </div>
+    <div class="shopping_list">
+        <div class="list_text">购物清单</div>
+        <div class="current_time" ng-model="current_time">{{current_time}}</div>
+        <table class="cart_table">
+            <thead>
+            <tr>
+                <th class="classification">分类</th>
+                <th class="name">名称</th>
+                <th class="price">单价(元)</th>
+                <th class="unit">单位</th>
+                <th class="count">数量</th>
+                <th class="subtotal">小计</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="one_goods in cart_goods">
+                <td >{{one_goods.classification}}</td>
+                <td >{{one_goods.name}}</td>
+                <td class="number">{{one_goods.price}}</td>
+                <td >{{one_goods.unit}}</td>
+                <td class="number">{{one_goods.count}}</td>
+                <td class="number">{{one_goods.subtotal}}元<a ng-if="show_original_price(one_goods.free_count)">(原价：  {{one_goods.count*one_goods.price}}元)</a></td>
+            </tr>
+        </table>
+        <div class="free_goods" ng-if="free">赠送商品</div>
+        <table class="free_table" ng-if="free">
+            <thead>
+            <tr>
+                <th >分类</th>
+                <th >名称</th>
+                <th >数量</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="one_free_goods in free_goods">
+                <td >{{one_free_goods.classification}}</td>
+                <td >{{one_free_goods.name}}</td>
+                <td class="number">{{one_free_goods.free_count}}</td>
+            </tr>
+        </table>
+        <div class="sum_money" id="total" ng-model="total">总计：{{total}}(元)</div>
+        <div class="free_money" id="save" ng-if="free" ng-model="save">节省：{{save}}(元)</div>
+        <button id="confirm"   ng-click="click_ok()" >确认</button>
+    </div>
+</div>
